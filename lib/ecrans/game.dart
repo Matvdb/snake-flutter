@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:snake/ecrans/gameBoard.dart';
-import 'package:snake/ecrans/gameKeyboard.dart';
 import 'package:snake/outils/snake.dart';
 import 'package:flutter/src/rendering/box.dart';
 

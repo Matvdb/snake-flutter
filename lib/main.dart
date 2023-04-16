@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:snake/ecrans/game.dart';
 import 'package:snake/ecrans/gameBoard.dart';
-import 'package:snake/ecrans/gameKeyboard.dart';
 import 'package:snake/ecrans/home.dart';
 import 'package:snake/outils/snake.dart';
 

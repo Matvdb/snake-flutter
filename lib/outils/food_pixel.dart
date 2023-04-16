@@ -15,6 +15,9 @@ class _FoodPixelState extends State<FoodPixel> {
       padding: const EdgeInsets.all(2.0),
       child: Container(
         decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/pomme.png"),
+          ),
           color: Colors.green,
           borderRadius: BorderRadius.circular(5.0),
         ),
