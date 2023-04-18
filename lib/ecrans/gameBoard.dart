@@ -23,6 +23,7 @@ class _GameBoardState extends State<GameBoard> {
   int rowSize = 10;
   int nbTotal = 100;
   var score = Snake.score;
+  int ?bestScore;
   bool estCommencer = false;
 
   int foodPosition = 55;
@@ -99,6 +100,20 @@ class _GameBoardState extends State<GameBoard> {
     }
   }
 
+  void newGame(){
+    setState(() {
+      snakePosition = [
+        0,
+        1,
+        2,
+      ];
+      foodPosition == 55;
+      directionActu = snake_Direction.DROITE;
+      estCommencer = false;
+      score = 0;
+    });
+  }
+
   bool gameOver(){
     List<int> bodySnake = snakePosition.sublist(0, snakePosition.length - 1);
     if(bodySnake.contains(snakePosition.last)){
@@ -136,7 +151,10 @@ class _GameBoardState extends State<GameBoard> {
             TextButton(
               child: const Text('Rejouer'),
               onPressed: () {
-                Navigator.pushNamed(context, "/snake");
+                setState(() {
+                  Navigator.of(context).pop();
+                  newGame();
+                });
               },
             ),
           ],
