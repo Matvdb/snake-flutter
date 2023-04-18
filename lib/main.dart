@@ -3,6 +3,7 @@ import 'package:snake/ecrans/game.dart';
 import 'package:snake/ecrans/gameBoard.dart';
 import 'package:snake/ecrans/home.dart';
 import 'package:snake/outils/snake.dart';
+import 'package:snake/splashScreen/splashScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,9 +17,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primaryColor: Colors.black,
+        primaryColor: Colors.green[400],
       ),
-      home: const MyHomePage(title: 'Snake'),
+      home: const SplashScreen(),
       debugShowCheckedModeBanner: false,
       routes: <String, WidgetBuilder>{
         '/snake': (BuildContext context) => GameScreen(),

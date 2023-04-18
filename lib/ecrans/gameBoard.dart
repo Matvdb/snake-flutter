@@ -7,6 +7,8 @@ import 'package:snake/outils/blank_pixel.dart';
 import 'package:snake/outils/food_pixel.dart';
 import 'package:snake/outils/snake.dart';
 import 'package:snake/outils/snake_pixel.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' as convert;
 
 class GameBoard extends StatefulWidget {
   const GameBoard(this.game, {Key? key}) : super(key: key);
@@ -20,19 +22,67 @@ class GameBoard extends StatefulWidget {
 enum snake_Direction {HAUT, BAS, GAUCHE, DROITE}
 
 class _GameBoardState extends State<GameBoard> {
+  /* INIT LOGIN */
+  final _formKey = GlobalKey<FormState>();
+  String login = "";
+
+  /* SIZE OF GAME CONTAINER */
   int rowSize = 10;
   int nbTotal = 100;
+
+  /* RECEIVE DATA SNAKE SCORE*/
   var score = Snake.score;
+
+  /* INIT A POSSIBLE BEST SCORE */
   int ?bestScore;
+
+  /* BOOL FOR STARTGAME BUTTON */
   bool estCommencer = false;
 
+  /* INIT POSITION OF FOOD AND BODY SNAKE */
   int foodPosition = 55;
   List<int> snakePosition = [0,1,2];
 
+  /* FUNCTION NEEDING FOR PUSH SCORE DATA */
+  Future<http.Response> envoiScore(
+      int score) {
+    return http.post(
+      Uri.parse(
+          'https://s3-4427.nuage-peda.fr/snake/public/api/classements'),
+      headers: <String, String>{
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: convert.jsonEncode(<String, dynamic>{
+        "score": score,
+      }),
+    );
+  }
+
+  /* FUNCTON NEEDING FOR CHECK SCORE ON PUSH DATA */
+  void checkPushData() async {
+    var dataScore = await envoiScore(score);
+    if(dataScore.statusCode == 201){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Score envoyé'),
+      ));
+    } else if(dataScore.statusCode == 422){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(''),
+      ));
+    } else{
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Connexion au serveur impossible'),
+      ));
+    }
+  }
+
+  /* INIT VARIABLE TO MAKE DIRECTION FOR SNAKE */
   var directionActu = snake_Direction.DROITE;
 
+  /* INIT GAME ON START */
   void startGame(){
-    Timer.periodic(Duration(milliseconds: 200), (timer) {
+    Timer.periodic(const Duration(milliseconds: 200), (timer) {
       setState(() {
         estCommencer = true;
         mouvementSnake();
@@ -45,12 +95,15 @@ class _GameBoardState extends State<GameBoard> {
     });      
   }
 
+  /* GENERATE RANDOM POSITIONS ON 100 CONTAINER OF THE GAMECONTAINER */
+  /* IF SNAKE POSITION IS IN FOOD POSITION, FOOD POSITION CHANGING */
   void eatFood(){
     while(snakePosition.contains(foodPosition)){
       foodPosition = Random().nextInt(nbTotal);
     }
   }
 
+  /* MAKE MOOV ON SNAKE */
   void mouvementSnake(){
     switch (directionActu){
       case snake_Direction.DROITE:
@@ -92,6 +145,7 @@ class _GameBoardState extends State<GameBoard> {
       default:
     }
 
+    /* IF HEAD SNAKE IS IN  */
     if(snakePosition.last == foodPosition){
       eatFood();
       score++;
@@ -132,12 +186,7 @@ class _GameBoardState extends State<GameBoard> {
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Row(
-                  children: [
-                    Text("Votre score est de "),
-                    Text("$score"),
-                  ],
-                ),
+                Text("Votre score est de $score"),
               ],
             ),
           ),
@@ -151,8 +200,17 @@ class _GameBoardState extends State<GameBoard> {
             TextButton(
               child: const Text('Rejouer'),
               onPressed: () {
+                Navigator.of(context).pop();
+                newGame();
+              },
+            ),
+            TextButton(
+              child: const Text('Sauvegarder et rejouer'),
+              onPressed: () {
                 setState(() {
                   Navigator.of(context).pop();
+                  checkPushData();
+
                   newGame();
                 });
               },
@@ -213,7 +271,7 @@ class _GameBoardState extends State<GameBoard> {
               width: MediaQuery.of(context).size.width,
               child: Center(
                 child: Text("$score",
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
                   color: Colors.white
@@ -230,7 +288,7 @@ class _GameBoardState extends State<GameBoard> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: estCommencer == true ? Colors.grey : Colors.blue,
               ),
-              child: Text("Jouer"),
+              child: const Text("Jouer"),
             ),
           ],
         ),
