@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:snake/ecrans/home.dart';
 import 'package:snake/outils/blank_pixel.dart';
 import 'package:snake/outils/food_pixel.dart';
 import 'package:snake/outils/snake.dart';
@@ -42,6 +43,7 @@ class _GameBoardState extends State<GameBoard> {
   /* INIT POSITION OF FOOD AND BODY SNAKE */
   int foodPosition = 55;
   List<int> snakePosition = [0,1,2];
+  
 
   /* FUNCTION NEEDING FOR PUSH SCORE DATA */
   Future<http.Response> envoiScore(
@@ -192,9 +194,9 @@ class _GameBoardState extends State<GameBoard> {
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Fermer'),
+              child: const Text('Quitter'),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.pushReplacementNamed(context, "/home");
               },
             ),
             TextButton(
@@ -210,7 +212,6 @@ class _GameBoardState extends State<GameBoard> {
                 setState(() {
                   Navigator.of(context).pop();
                   checkPushData();
-
                   newGame();
                 });
               },
@@ -270,12 +271,23 @@ class _GameBoardState extends State<GameBoard> {
               height: MediaQuery.of(context).size.height * 0.2,
               width: MediaQuery.of(context).size.width,
               child: Center(
-                child: Text("$score",
-                style: const TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white
-                ),),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 35,
+                      child: Image(image: AssetImage("assets/images/pomme.png")),
+                    ),
+                    Padding(padding: EdgeInsets.all(5)),
+                    Text("$score",
+                      style: const TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             Container(

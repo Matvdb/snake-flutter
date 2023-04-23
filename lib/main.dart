@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: <String, WidgetBuilder>{
         '/snake': (BuildContext context) => GameScreen(),
+        '/home': (BuildContext context) => MyHomePage(title: "Snake",),
       }
     );
   }

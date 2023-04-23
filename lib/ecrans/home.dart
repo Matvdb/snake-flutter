@@ -57,16 +57,95 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  /* Future<http.Response> envoiLevel(
+      String login) {
+    return http.post(
+      Uri.parse(
+          'https://s3-4427.nuage-peda.fr/snake/public/api/users'),
+      headers: <String, String>{
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: convert.jsonEncode(<String, dynamic>{
+        "username": login,
+        "roles": ["ROLE_ADMIN"],
+      }),
+    );
+  }
+
+  void checkAccount() async {
+    var connexion = await createAccount(login);
+    log(connexion.statusCode.toString());
+    if (connexion.statusCode == 201) {
+      Navigator.pushReplacementNamed(context, '/snake');
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Login enregstré'),
+      ));
+    } else if (connexion.statusCode == 422) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Login déjà utilisé'),
+      ));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Connexion au serveur impossible'),
+      ));
+    }
+  } */
+
+  List<DropdownMenuItem<String>> get dropdownItems{
+    List<DropdownMenuItem<String>> menuItems = [
+      DropdownMenuItem(child: Text("Facile"),value: "1"),
+      DropdownMenuItem(child: Text("Intermédiaire"),value: "2"),
+      DropdownMenuItem(child: Text("Difficile"),value: "3"),
+      DropdownMenuItem(child: Text("Extrême"),value: "4"),
+    ];
+    return menuItems;
+  }
+
+  String? selectedValue = null;
+  final _dropdownFormKey = GlobalKey<FormState>();
+
   Future<void> _popUpStart() async {
     return showDialog<void>(
       context: context,
-      barrierDismissible: false, // user must tap button!
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Sélection de partie'),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
+               Form(
+                key: _dropdownFormKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    DropdownButtonFormField(
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue, width: 2),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue, width: 2),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          filled: true,
+                          fillColor: Colors.blueAccent,
+                        ),
+                        validator: (value) => value == null ? "Select a country" : null,
+                        dropdownColor: Colors.blueAccent,
+                        value: selectedValue,
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            selectedValue = newValue!;
+                          });
+                        },
+                        items: dropdownItems
+                        ),
+                    ],
+                  ),
+                ),
                 Form(
                   key: _formKey,
                   child:
@@ -84,16 +163,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      if (_formKey.currentState!.validate()) {
-                        checkAccount();
-                      }
-                    });
-                  }, 
-                  child: const Text("Commencer la partie"),
-                )
               ],
             ),
           ),
@@ -102,6 +171,26 @@ class _MyHomePageState extends State<MyHomePage> {
               child: const Text('Fermer'),
               onPressed: () {
                 Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text("Commencer sans s'identifier"),
+              onPressed: () {
+                Navigator.pushNamed(context, '/snake');
+              },
+            ),
+            TextButton(
+              child: const Text('Commencer'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                setState(() {
+                  if (_formKey.currentState!.validate()) {
+                    checkAccount();
+                  }
+                  if (_dropdownFormKey.currentState!.validate()) {
+                    //valid flow
+                  }
+                });
               },
             ),
           ],
