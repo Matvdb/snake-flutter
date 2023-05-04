@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:snake/ecrans/game.dart';
 import 'package:snake/ecrans/gameBoard.dart';
 import 'package:snake/ecrans/home.dart';
+import 'package:snake/ecrans_niveaux/snake_difficile.dart';
+import 'package:snake/ecrans_niveaux/snake_extreme.dart';
+import 'package:snake/ecrans_niveaux/snake_intermediaire.dart';
 import 'package:snake/outils/snake.dart';
 import 'package:snake/splashScreen/splashScreen.dart';
 
@@ -23,7 +26,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: <String, WidgetBuilder>{
         '/snake': (BuildContext context) => GameScreen(),
-        '/home': (BuildContext context) => MyHomePage(title: "Snake",),
+        '/snakeInter': (BuildContext context) => NiveauIntermediaire(),
+        '/snakeDiff': (BuildContext context) => Difficile(),
+        '/snakeExtre': (BuildContext context) => Extreme(),
+        '/home': (BuildContext context) => MyHomePage(),
       }
     );
   }

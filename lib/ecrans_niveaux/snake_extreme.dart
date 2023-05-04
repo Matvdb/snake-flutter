@@ -3,30 +3,26 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:snake/ecrans/gameBoard.dart';
 import 'package:snake/ecrans/home.dart';
 import 'package:snake/outils/blank_pixel.dart';
 import 'package:snake/outils/food_pixel.dart';
 import 'package:snake/outils/snake.dart';
-import 'package:snake/outils/snake_pixel.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
-class GameBoard extends StatefulWidget {
-  const GameBoard(this.game, {Key? key}) : super(key: key);
+import 'package:snake/outils/snake_pixel.dart';
 
-  final Snake game;
+class Extreme extends StatefulWidget {
+  const Extreme({super.key});
 
   @override
-  State<GameBoard> createState() => _GameBoardState();
+  State<Extreme> createState() => _ExtremeState();
 }
 
 enum snake_Direction {HAUT, BAS, GAUCHE, DROITE}
 
-class _GameBoardState extends State<GameBoard> {
-  // init login + key form
-  final _formKey = GlobalKey<FormState>();
-  String login = "";
-
+class _ExtremeState extends State<Extreme> {
   // size du container de jeu
   int rowSize = 10;
   int nbTotal = 100;
@@ -43,48 +39,13 @@ class _GameBoardState extends State<GameBoard> {
   // position de base de la nourriture ainsi que du corps du Snake
   int foodPosition = 55;
   List<int> snakePosition = [0,1,2];
-  
-
-  // fonction permettant l'envoi du score dans la BDD
-  Future<http.Response> envoiScore(
-      int score) {
-    return http.post(
-      Uri.parse(
-          'https://s3-4427.nuage-peda.fr/snake/public/api/classements'),
-      headers: <String, String>{
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: convert.jsonEncode(<String, dynamic>{
-        "score": score,
-      }),
-    );
-  }
-
-  // fonction permettant de vérifier l'envoi du score avec API Plateform
-  void checkPushData() async {
-    var dataScore = await envoiScore(score);
-    if(dataScore.statusCode == 201){
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Score envoyé'),
-      ));
-    } else if(dataScore.statusCode == 422){
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(''),
-      ));
-    } else{
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Connexion au serveur impossible'),
-      ));
-    }
-  }
 
   // init de la direction de base du Snake (vers la droite)
   var directionActu = snake_Direction.DROITE;
 
   // fonction de début de game
   void startGame(){
-    Timer.periodic(const Duration(milliseconds: 200), (timer) {
+    Timer.periodic(const Duration(milliseconds: 50), (timer) {
       setState(() {
         estCommencer = true;
         mouvementSnake();
@@ -179,6 +140,40 @@ class _GameBoardState extends State<GameBoard> {
       return true;
     }
     return false;
+  }
+
+  // fonction permettant l'envoi du score dans la BDD
+  Future<http.Response> envoiScore(
+      int score) {
+    return http.post(
+      Uri.parse(
+          'https://s3-4427.nuage-peda.fr/snake/public/api/classements'),
+      headers: <String, String>{
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: convert.jsonEncode(<String, dynamic>{
+        "score": score,
+      }),
+    );
+  }
+
+  // fonction permettant de vérifier l'envoi du score avec API Plateform
+  void checkPushData() async {
+    var dataScore = await envoiScore(score);
+    if(dataScore.statusCode == 201){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Score envoyé'),
+      ));
+    } else if(dataScore.statusCode == 422){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(''),
+      ));
+    } else{
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Connexion au serveur impossible'),
+      ));
+    }
   }
 
   // Widget affichant un pop-up lorsque le Joueur a perdu
@@ -296,6 +291,10 @@ class _GameBoardState extends State<GameBoard> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Align(
+              alignment: Alignment.center,
+              child: Text("Niveau :" + "intermédiaire"),
+            ),
             Container(
               height: MediaQuery.of(context).size.height * 0.2,
               width: MediaQuery.of(context).size.width,

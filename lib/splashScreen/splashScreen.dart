@@ -37,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
       const Duration(seconds: 2), 
       ()=> Navigator.pushReplacement(
         context, MaterialPageRoute(
-          builder: (context) => const MyHomePage(title: "Snake",),
+          builder: (context) => const MyHomePage(),
         )
       )
     );

@@ -10,9 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:snake/outils/snake_pixel.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -42,10 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
     var connexion = await createAccount(login);
     log(connexion.statusCode.toString());
     if (connexion.statusCode == 201) {
-      Navigator.pushReplacementNamed(context, '/snake');
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Login enregstré'),
-      ));
+      print("Login enregistré");
     } else if (connexion.statusCode == 422) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Login déjà utilisé'),
@@ -57,29 +52,26 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  /* Future<http.Response> envoiLevel(
-      String login) {
+  Future<http.Response> envoiLevel(String level) {
     return http.post(
       Uri.parse(
-          'https://s3-4427.nuage-peda.fr/snake/public/api/users'),
+          'https://s3-4427.nuage-peda.fr/snake/public/api/niveaux'),
       headers: <String, String>{
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
       body: convert.jsonEncode(<String, dynamic>{
-        "username": login,
-        "roles": ["ROLE_ADMIN"],
+        "niveaux": valeurLvl.toString(),
       }),
     );
   }
 
-  void checkAccount() async {
-    var connexion = await createAccount(login);
+  void checkDonnee() async {
+    var connexion = await envoiLevel(valeurLvl.toString());
     log(connexion.statusCode.toString());
     if (connexion.statusCode == 201) {
-      Navigator.pushReplacementNamed(context, '/snake');
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Login enregstré'),
+        content: Text('Lvl envoyé'),
       ));
     } else if (connexion.statusCode == 422) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -90,17 +82,19 @@ class _MyHomePageState extends State<MyHomePage> {
         content: Text('Connexion au serveur impossible'),
       ));
     }
-  } */
+    print(valeurLvl.toString());
+  }
 
   List<DropdownMenuItem<String>> get dropdownItems{
     List<DropdownMenuItem<String>> menuItems = [
-      DropdownMenuItem(child: Text("Facile"),value: "1"),
-      DropdownMenuItem(child: Text("Intermédiaire"),value: "2"),
-      DropdownMenuItem(child: Text("Difficile"),value: "3"),
-      DropdownMenuItem(child: Text("Extrême"),value: "4"),
+      DropdownMenuItem(child: Text("Facile"),value: "facile"),
+      DropdownMenuItem(child: Text("Intermédiaire"),value: "intermédiaire"),
+      DropdownMenuItem(child: Text("Difficile"),value: "difficile"),
+      DropdownMenuItem(child: Text("Extrême"),value: "extrême"),
     ];
     return menuItems;
   }
+  String? valeurLvl;
 
   String? selectedValue = null;
   final _dropdownFormKey = GlobalKey<FormState>();
@@ -133,12 +127,13 @@ class _MyHomePageState extends State<MyHomePage> {
                           filled: true,
                           fillColor: Colors.blueAccent,
                         ),
-                        validator: (value) => value == null ? "Select a country" : null,
+                        validator: (value) => value == null ? "Choisissez un niveau" : null,
                         dropdownColor: Colors.blueAccent,
                         value: selectedValue,
                         onChanged: (String? newValue) {
                           setState(() {
                             selectedValue = newValue!;
+                            valeurLvl = newValue;
                           });
                         },
                         items: dropdownItems
@@ -188,7 +183,16 @@ class _MyHomePageState extends State<MyHomePage> {
                     checkAccount();
                   }
                   if (_dropdownFormKey.currentState!.validate()) {
-                    //valid flow
+                    checkDonnee();
+                    if(valeurLvl == "facile"){
+                      Navigator.pushNamed(context, '/snake');
+                    } else if (valeurLvl == "intermédiaire"){
+                      Navigator.pushNamed(context, '/snakeInter');
+                    } else if (valeurLvl == "difficile"){
+                      Navigator.pushNamed(context, '/snakeDiff');
+                    } else if (valeurLvl == "extrême"){
+                      Navigator.pushNamed(context, '/snakeExtre');
+                    }
                   }
                 });
               },
@@ -203,7 +207,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text("Snake"),
         centerTitle: true,
         backgroundColor: Theme.of(context).primaryColor,
       ),
@@ -249,7 +253,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Text("Bienvenue sur ${widget.title}", 
+                    child: Text("Bienvenue sur Snake", 
                       style: const TextStyle(
                         fontFamily: "Bubblegum",
                         fontSize: 25.0,
