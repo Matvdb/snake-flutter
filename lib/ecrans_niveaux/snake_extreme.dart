@@ -291,9 +291,21 @@ class _ExtremeState extends State<Extreme> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Align(
-              alignment: Alignment.center,
-              child: Text("Niveau :" + "intermédiaire"),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Niveau choisi :",
+                  style: TextStyle(
+                    fontSize: 18.0,
+                  ),
+                ),
+                Text("extrême",
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
+              ],
             ),
             Container(
               height: MediaQuery.of(context).size.height * 0.2,
