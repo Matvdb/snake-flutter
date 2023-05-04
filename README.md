@@ -8,5 +8,7 @@
 Le projet <strong>Snake</strong> est un projet personnel ayant pour but de reprendre le très connu jeu Google gratuit du "Snake".
 Celui-ci a été retranscrit en application mobile, développé en Flutter et Dart, en y aillant ajouté certaine fonctionnalitée tel que l'ajout de divers niveaux.
 
-<img src="assets/images/niveauFacile.gif" width="50%">
-<img src="assets/images/niveauExtreme.gif" width="50%">
+<p align="center">
+<img src="assets/images/nieauFacile.gif" width="900" height="200">
+<img src="assets/images/niveauExtreme.gif" width="900" height="200">
+</p>
