@@ -9,6 +9,6 @@ Le projet <strong>Snake</strong> est un projet personnel ayant pour but de repre
 Celui-ci a été retranscrit en application mobile, développé en Flutter et Dart, en y aillant ajouté certaine fonctionnalitée tel que l'ajout de divers niveaux.
 
 <p align="center">
-<img src="assets/images/nieauFacile.gif" width="50" height="900">
-<img src="assets/images/niveauExtreme.gif" width="50" height="900">
+<img src="assets/images/nieauFacile.gif" width="200" height="900">
+<img src="assets/images/niveauExtreme.gif" width="200" height="900">
 </p>
