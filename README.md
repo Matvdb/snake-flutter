@@ -17,11 +17,14 @@ Celui-ci a été retranscrit en application mobile, développé en Flutter et Da
 <h2 align="center">Interfaces du jeu</h2>
 <br>
 
+Ces deux interfaces montrent 2 niveaux opposés au Snake, à gauche le niveau <strong>facile</strong> soit le premier, et à droite le niveau <strong>extrême</strong> soit le dernier. Il y a un total de 4 niveaux ayant chacun leurs difficultées ainsi que leurs vitesse de jeu.
+<br>
+
 <p align="center">
     <img src="assets/images/nieauFacile.gif" width="350" height="900">
     <img src="assets/images/niveauExtreme.gif" width="350" height="900">
 </p>
 <br>
 
-<h3>Ces deux interfaces montrent 2 niveaux opposés au Snake, à gauche le niveau <strong>facile</strong> soit le premier, et à droite le niveau <strong>extrême</strong> soit le dernier. Il y a un total de 4 niveaux ayant chacun leurs difficultées ainsi que leurs vitesse de jeu.</h3>
+
 
