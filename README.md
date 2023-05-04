@@ -47,3 +47,10 @@ Concernant la <strong>base de donnée</strong>, le but était simplement de pouv
 
 
 Bien évidemment, le principe du jeu du Snake n'est pas de gagner... Votre but est de faire le meilleur score possible, vous allez donc forcément perdre à un moment ou à un autre, mais à quel moment ? 😈 A votre tour ! Jusqu'où irez vous ?
+
+<h2 align="center">Connectons-nous !</h2>
+<br>
+
+<p align="center">
+    [![Linkedin][Linkedin-url]](https://www.linkedin.com/in/mathieu-vanderbregt-968898239/)
+</p>
