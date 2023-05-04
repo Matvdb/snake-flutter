@@ -21,8 +21,8 @@ Ces deux interfaces montrent 2 niveaux opposés au Snake, à gauche le niveau <s
 <br>
 
 <p align="center">
-    <img src="assets/images/nieauFacile.gif" width="100" height="600">
-    <img src="assets/images/niveauExtreme.gif" width="100" height="600">
+    <img src="assets/images/nieauFacile.gif" width="400" height="600">
+    <img src="assets/images/niveauExtreme.gif" width="400" height="600">
 </p>
 <br>
 
@@ -30,8 +30,8 @@ Voici désormais un rapide avant goût de l'entrée dans cette application.
 <br>
 
 <p align="center">
-    <img src="assets/images/accueil.jpg" width="100" height="600">
-    <img src="assets/images/menu_accueil.jpg" width="100" height="600">
+    <img src="assets/images/accueil.jpg" width="400" height="600">
+    <img src="assets/images/menu_accueil.jpg" width="400" height="600">
 </p>
 <br>
 
