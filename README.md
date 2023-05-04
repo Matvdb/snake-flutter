@@ -52,5 +52,6 @@ Bien évidemment, le principe du jeu du Snake n'est pas de gagner... Votre but e
 <br>
 
 <p align="center">
-    [![Linkedin][Linkedin-url]](https://www.linkedin.com/in/mathieu-vanderbregt-968898239/)
+    [![image](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColors=white)](https://www.linkedin.com/in/mathieu-vanderbregt-968898239/)
+    [![image](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColors=white)](mailto:mathieuvanderbregt@gmail.com)
 </p>
