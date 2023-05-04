@@ -31,7 +31,7 @@ Voici désormais un rapide avant goût de l'entrée dans cette application.
 
 <p align="center">
     <img src="assets/images/acceuil.jpg" width="350" height="900">
-    <img src="assets/images/menu_acceuil.jpg" width="350" height="900">
+    <img src="assets/images/menu_accueil.jpg" width="350" height="900">
 </p>
 <br>
 
@@ -42,7 +42,7 @@ Concernant la <strong>base de donnée</strong>, le but était simplement de pouv
 <br>
 
 <p align="center">
-    <img src="assets/images/bdd.png" width="350" height="350">
+    <img src="assets/images/bdd.png" width="500" height="350">
 </p>
 
 
