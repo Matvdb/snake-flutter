@@ -67,6 +67,12 @@ flutter:
    - assets/images/pomme.png
    - assets/images/logo.png
    - assets/images/teteSerpent.png
+   - assets/images/accueil.jpg
+   - assets/images/jeu.jpg
+   - assets/images/loose.jpg
+   - assets/images/menu_accueil.jpg
+   - assets/images/niveauExtreme.mp4
+   - assets/images/niveauFacile.mp4
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

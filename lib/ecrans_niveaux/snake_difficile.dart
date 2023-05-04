@@ -162,13 +162,9 @@ class _DifficileState extends State<Difficile> {
   void checkPushData() async {
     var dataScore = await envoiScore(score);
     if(dataScore.statusCode == 201){
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Score envoyé'),
-      ));
+      print("Score envoyé");
     } else if(dataScore.statusCode == 422){
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(''),
-      ));
+      print("");
     } else{
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Connexion au serveur impossible'),
@@ -235,6 +231,16 @@ class _DifficileState extends State<Difficile> {
               onPressed: () {
                 setState(() {
                   Navigator.of(context).pop();
+                  checkPushData();
+                  newGame();
+                });
+              },
+            ),
+            TextButton(
+              child: const Text('Sauvegarder et quitter'),
+              onPressed: () {
+                setState(() {
+                  Navigator.pushNamed(context, '/home');
                   checkPushData();
                   newGame();
                 });

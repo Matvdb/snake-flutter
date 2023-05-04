@@ -245,6 +245,16 @@ class _GameBoardState extends State<GameBoard> {
                 });
               },
             ),
+            TextButton(
+              child: const Text('Sauvegarder et quitter'),
+              onPressed: () {
+                setState(() {
+                  Navigator.pushNamed(context, '/home');
+                  checkPushData();
+                  newGame();
+                });
+              },
+            ),
           ],
         );
       }

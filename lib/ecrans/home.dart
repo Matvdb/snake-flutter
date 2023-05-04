@@ -70,13 +70,9 @@ class _MyHomePageState extends State<MyHomePage> {
     var connexion = await envoiLevel(valeurLvl.toString());
     log(connexion.statusCode.toString());
     if (connexion.statusCode == 201) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Lvl envoyé'),
-      ));
+      print("Lvl envoyé");
     } else if (connexion.statusCode == 422) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Login déjà utilisé'),
-      ));
+      print("");
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Connexion au serveur impossible'),
