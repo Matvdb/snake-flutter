@@ -26,5 +26,24 @@ Ces deux interfaces montrent 2 niveaux opposés au Snake, à gauche le niveau <s
 </p>
 <br>
 
+Voici désormais un rapide avant goût de l'entrée dans cette application.
+<br>
+
+<p align="center">
+    <img src="assets/images/acceuil.jpg" width="350" height="900">
+    <img src="assets/images/menu_acceuil.jpg" width="350" height="900">
+</p>
+<br>
+
+<h2 align="center">Base de donnée</h2>
+<br>
+
+Concernant la <strong>base de donnée</strong>, le but était simplement de pouvoir s'identifier si on le souhaiter et de pouvoir envoyer ces données. Pour cela, la table <strong>user</strong> stockera logiquement le pseudonyme, la table <strong>niveau</strong> stockera le nom et le numéro de celui-ci et la table <strong>classement</strong> s'occupera des scores, ce qui permettra par la suite de générer un classement des meilleurs joueurs.
+<br>
+
+<p align="center">
+    <img src="assets/images/bdd.png" width="350" height="350">
+</p>
 
 
+Bien évidemment, le principe du jeu du Snake n'est pas de gagner... Votre but est de faire le meilleur score possible, vous allez donc forcément perdre à un moment ou à un autre, mais à quel moment ? 😈 A votre tour ! Jusqu'où irez vous ?

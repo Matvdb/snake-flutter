@@ -66,6 +66,7 @@ flutter:
   assets:
    - assets/images/pomme.png
    - assets/images/logo.png
+   - assets/images/bdd.png
    - assets/images/teteSerpent.png
    - assets/images/accueil.jpg
    - assets/images/jeu.jpg
