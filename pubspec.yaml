@@ -72,7 +72,9 @@ flutter:
    - assets/images/loose.jpg
    - assets/images/menu_accueil.jpg
    - assets/images/niveauExtreme.mp4
+   - assets/images/niveauExtreme.gif
    - assets/images/niveauFacile.mp4
+   - assets/images/niveauFacile.gif
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
