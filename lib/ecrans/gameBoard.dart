@@ -11,10 +11,10 @@ import 'package:snake/outils/snake_pixel.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
-class GameBoard extends StatefulWidget {
-  const GameBoard(this.game, {Key? key}) : super(key: key);
+import 'package:snake/outils/teteSnake.dart';
 
-  final Snake game;
+class GameBoard extends StatefulWidget {
+  const GameBoard({Key? key}) : super(key: key);
 
   @override
   State<GameBoard> createState() => _GameBoardState();
@@ -23,6 +23,11 @@ class GameBoard extends StatefulWidget {
 enum snake_Direction {HAUT, BAS, GAUCHE, DROITE}
 
 class _GameBoardState extends State<GameBoard> {
+
+  Snake game = Snake();
+
+  Column _btnMoov = Column();
+
   // init login + key form
   final _formKey = GlobalKey<FormState>();
   String login = "";
@@ -34,16 +39,12 @@ class _GameBoardState extends State<GameBoard> {
   // init variable pour récupérer la donnée score de la classe Snake
   var score = Snake.score;
 
-  // init d'un possible meilleur score
-  int ?bestScore;
-
   // booléen init à false pour le commencement de la partie
   bool estCommencer = false;
 
   // position de base de la nourriture ainsi que du corps du Snake
   int foodPosition = 55;
   List<int> snakePosition = [0,1,2];
-  
 
   // fonction permettant l'envoi du score dans la BDD
   Future<http.Response> envoiScore(
@@ -286,7 +287,7 @@ class _GameBoardState extends State<GameBoard> {
         itemBuilder: (context, index){
           if(snakePosition.contains(index)){
             return const SnakePixel();
-          } else if(foodPosition == index){
+          }else if(foodPosition == index){
             return const FoodPixel();
           } else {
             return const BlancPixel();
@@ -296,9 +297,12 @@ class _GameBoardState extends State<GameBoard> {
     );
   }
 
-  List<Widget> btnDeplacement(){
-    return [
-      Align(
+  void boutonsMouvements(){
+    setState(() {
+      _btnMoov = Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Align(
               alignment: Alignment.center,
               child: ElevatedButton(
                   onPressed: () {
@@ -308,7 +312,7 @@ class _GameBoardState extends State<GameBoard> {
                   }, 
                   child: Icon(Icons.arrow_circle_up_rounded),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: estCommencer == false ? Colors.grey : Theme.of(context).primaryColor,
+                    backgroundColor: Theme.of(context).primaryColor,
                   ),
                   
                 ),
@@ -324,7 +328,7 @@ class _GameBoardState extends State<GameBoard> {
                   }, 
                   child: Icon(Icons.arrow_circle_left_outlined),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: estCommencer == false ? Colors.grey : Theme.of(context).primaryColor,
+                    backgroundColor: Theme.of(context).primaryColor,
                   ),
                 ),
                 ElevatedButton(
@@ -335,7 +339,7 @@ class _GameBoardState extends State<GameBoard> {
                   },
                   child: Icon(Icons.arrow_circle_right_outlined),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: estCommencer == false ? Colors.grey : Theme.of(context).primaryColor,
+                    backgroundColor: Theme.of(context).primaryColor,
                   ),
                 ),
               ],
@@ -350,12 +354,16 @@ class _GameBoardState extends State<GameBoard> {
                   },
                   child: Icon(Icons.arrow_circle_down_outlined),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: estCommencer == false ? Colors.grey : Theme.of(context).primaryColor,
+                    backgroundColor: Theme.of(context).primaryColor,
                   ),
                 ),
             ),
-    ];
+        ],
+      );
+    });
   }
+
+  String textStartButton = "Jouer";
 
   @override
   Widget build(BuildContext context) {
@@ -395,21 +403,24 @@ class _GameBoardState extends State<GameBoard> {
               width: MediaQuery.of(context).size.width,
               child: gameContainer(),
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: btnDeplacement(),
-            ),
-            ElevatedButton(
-              onPressed: (){
-                if(estCommencer == false){
-                  startGame();
-                  btnDeplacement();
-                } else {}
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: estCommencer == true ? Colors.grey : Colors.blue,
-              ),
-              child: const Text("Jouer"),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                  onPressed: (){
+                    if(estCommencer == false){
+                      startGame();
+                      boutonsMouvements();
+                    } else {
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: estCommencer == false ? Colors.blue : Colors.grey,
+                  ),
+                  child: Text(textStartButton),
+                ),
+                _btnMoov,
+              ],
             ),
           ],
         ),

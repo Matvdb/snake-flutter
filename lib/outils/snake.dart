@@ -15,6 +15,10 @@ class Snake{
   static getSnakePositon(){
     return snakePosition;
   }
+
+  static int getScore(){
+    return score;
+  }
 }
 
 class Case{

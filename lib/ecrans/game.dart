@@ -23,6 +23,6 @@ class _GameScreenState extends State<GameScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GameBoard(_game);
+    return GameBoard();
   }
 }

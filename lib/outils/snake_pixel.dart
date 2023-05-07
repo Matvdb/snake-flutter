@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:snake/ecrans/game.dart';
+import 'package:snake/ecrans/gameBoard.dart';
+import 'package:snake/outils/snake.dart';
 
 class SnakePixel extends StatefulWidget {
   const SnakePixel({super.key});
 
+  
   @override
   State<SnakePixel> createState() => _SnakePixelState();
 }
