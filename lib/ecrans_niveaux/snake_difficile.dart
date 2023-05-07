@@ -287,6 +287,67 @@ class _DifficileState extends State<Difficile> {
     );
   }
 
+  List<Widget> btnDeplacement(){
+    return [
+      Align(
+              alignment: Alignment.center,
+              child: ElevatedButton(
+                  onPressed: () {
+                    if(directionActu != snake_Direction.BAS && directionActu == snake_Direction.GAUCHE || directionActu == snake_Direction.DROITE){
+                      directionActu = snake_Direction.HAUT;
+                    }
+                  }, 
+                  child: Icon(Icons.arrow_circle_up_rounded),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: estCommencer == false ? Colors.grey : Theme.of(context).primaryColor,
+                  ),
+                  
+                ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    if(directionActu != snake_Direction.DROITE && directionActu == snake_Direction.HAUT || directionActu == snake_Direction.BAS){
+                      directionActu = snake_Direction.GAUCHE;
+                    }
+                  }, 
+                  child: Icon(Icons.arrow_circle_left_outlined),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: estCommencer == false ? Colors.grey : Theme.of(context).primaryColor,
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    if(directionActu != snake_Direction.GAUCHE && directionActu == snake_Direction.HAUT || directionActu == snake_Direction.BAS){
+                      directionActu = snake_Direction.DROITE;
+                    }
+                  },
+                  child: Icon(Icons.arrow_circle_right_outlined),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: estCommencer == false ? Colors.grey : Theme.of(context).primaryColor,
+                  ),
+                ),
+              ],
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: ElevatedButton(
+                  onPressed: () {
+                    if(directionActu != snake_Direction.HAUT && directionActu == snake_Direction.DROITE || directionActu == snake_Direction.GAUCHE){
+                      directionActu = snake_Direction.BAS;
+                    }
+                  },
+                  child: Icon(Icons.arrow_circle_down_outlined),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: estCommencer == false ? Colors.grey : Theme.of(context).primaryColor,
+                  ),
+                ),
+            ),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -341,8 +402,17 @@ class _DifficileState extends State<Difficile> {
               width: MediaQuery.of(context).size.width,
               child: gameContainer(),
             ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: btnDeplacement(),
+            ),
             ElevatedButton(
-              onPressed: estCommencer == true ? () {} : startGame,
+              onPressed: (){
+                if(estCommencer == false){
+                  startGame();
+                  btnDeplacement();
+                } else {}
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: estCommencer == true ? Colors.grey : Colors.blue,
               ),
