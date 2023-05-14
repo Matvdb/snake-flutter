@@ -1,8 +1,8 @@
 class Snake{
   static String nom = "";
   static String msgGame = "";
-
   static int score = 0;
+  static int bestScore= 0;
 
   static bool gameOver = false;
 
@@ -14,10 +14,6 @@ class Snake{
 
   static getSnakePositon(){
     return snakePosition;
-  }
-
-  static int getScore(){
-    return score;
   }
 }
 

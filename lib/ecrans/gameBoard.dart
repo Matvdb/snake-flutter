@@ -24,7 +24,7 @@ enum snake_Direction {HAUT, BAS, GAUCHE, DROITE}
 
 class _GameBoardState extends State<GameBoard> {
 
-  Snake game = Snake();
+  Snake _game = Snake();
 
   Column _btnMoov = Column();
 
@@ -38,6 +38,7 @@ class _GameBoardState extends State<GameBoard> {
 
   // init variable pour récupérer la donnée score de la classe Snake
   var score = Snake.score;
+  var bestScore = Snake.bestScore;
 
   // booléen init à false pour le commencement de la partie
   bool estCommencer = false;
@@ -90,6 +91,7 @@ class _GameBoardState extends State<GameBoard> {
         estCommencer = true;
         mouvementSnake();
         eatFood();
+        incrementScore();
         if(gameOver()){
           timer.cancel();
           _loose();
@@ -158,6 +160,16 @@ class _GameBoardState extends State<GameBoard> {
     }
   }
 
+  void incrementScore(){
+    setState(() {
+      if(score > bestScore){
+        bestScore = score;
+      } else if (score < bestScore){
+        bestScore = bestScore;
+      }
+    });
+  }
+
   // fonction permettant la création d'une nouvelle partie
   void newGame(){
     setState(() {
@@ -180,6 +192,17 @@ class _GameBoardState extends State<GameBoard> {
       return true;
     }
     return false;
+  }
+
+  Text sentence = Text("Bravo ! \nVous détenez le meilleur score !", textAlign: TextAlign.center, style: TextStyle(fontSize: 12.0),);
+  Text dontHaveBestScore(Text text){
+      if(score >= bestScore){
+        sentence = Text("Bravo ! \nVous détenez le meilleur score !",textAlign: TextAlign.center, style: TextStyle(fontSize: 12.0),);;
+      } else if (score < bestScore){
+        int diff = bestScore - score;
+        sentence = Text("Dommage ! \nIl vous reste $diff point(s) pour être 1er !", textAlign: TextAlign.center,style: TextStyle(fontSize: 12.0),);
+      }
+    return sentence;
   }
 
   // Widget affichant un pop-up lorsque le Joueur a perdu
@@ -216,7 +239,18 @@ class _GameBoardState extends State<GameBoard> {
                     ),
                     Text("$score", style: const TextStyle(
                       fontWeight: FontWeight.bold,
+                      color: Colors.red,
                     ),)
+                  ],
+                ),
+                Padding(padding: EdgeInsets.all(8)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Align(
+                      alignment: Alignment.center,
+                      child: dontHaveBestScore(sentence),
+                    ),
                   ],
                 ),
               ],
@@ -388,6 +422,15 @@ class _GameBoardState extends State<GameBoard> {
                     ),
                     const Padding(padding: EdgeInsets.all(5)),
                     Text("$score",
+                      style: const TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white
+                      ),
+                    ),
+                    Padding(padding: EdgeInsets.all(20)),
+                    Icon(Icons.emoji_events),
+                    Text("$bestScore",
                       style: const TextStyle(
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,
